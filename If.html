@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="note"></h1>
+    
+    <script>
+        let age = prompt(`How old are you?`);
+        age = Number(age);
+
+        if(age >= 18){
+            document.getElementById(`note`).textContent = (`You are old enough to enter this website`);
+        } else {
+            document.getElementById(`note`).textContent = (`You need to be at least 18+ years old to enter this website`);
+        }
+    </script>
+</body>
+</html>

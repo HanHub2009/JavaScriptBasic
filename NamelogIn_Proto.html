@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .Menu {
+            margin: 0;
+            display: grid;
+            place-items: center;
+            /* shortcut for justify + align */
+        }
+
+        #Message {
+            color: red;
+        }
+
+        #NameShow {
+            color: green;
+        }
+
+        #nextButton {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Menu">
+        <h1>Enter Your Username</h1>
+
+        <input id="myInput"><button id="myBtn" onclick="toggleText()">Submit</button>
+
+        <p id="Message"></p>
+        <p id="NameShow"></p>
+
+        <ul>
+            <li>Your username need to be at least 5 characters</li>
+            <li>Your username can't be more than 20 characters</li>
+            <li>Your username can't have space</li>
+        </ul>
+
+        <button id="nextButton"><a href="LuasGeo.html">Go to the next page!</a></button>
+
+
+        <table border="1">
+            <tr>
+                <th>Taken Username</th>
+            </tr>
+            <tr>
+                <td>Ahmad</td>
+            </tr>
+            <tr>
+                <td>PowerRangerFans123</td>
+            </tr>
+            <tr>
+                <td>AdamGaymerz</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        document.getElementById(`myBtn`).onclick = function () {
+            let name = document.getElementById(`myInput`).value;
+            let Message = document.getElementById(`Message`);
+            let NameShow = document.getElementById(`NameShow`)
+            const TakenName = [`Ahmad`, `PowerRangerFans123`, `AdamGaymerz`, `Paan`];
+
+            if (name.includes(` `)) {
+                Message.textContent = `Message: Your username can't have any space`;
+                NameShow.textContent = ` `;
+            }
+            else if (name.toLowerCase() === `banana`) {
+                Message.textContent = `Message:Your username cant't be banana.`;
+                NameShow.textContent = ` `;
+            }
+            else if (name.length <= 0) {
+                Message.textContent = `Message:Your username cant't be empty`;
+                NameShow.textContent = ` `;
+            }
+            else if (name.length >= 20) {
+                Message.textContent = `Message: Your username is too long`;
+                NameShow.textContent = ` `;
+            }
+            else if (name.length < 5) {
+                Message.textContent = `Message: Your username need to be at least 5 characters`;
+                NameShow.textContent = ` `;
+            }
+            else if (TakenName.includes(name)) {
+                Message.textContent = `Message: Your username already taken`;
+                NameShow.textContent = ` `;
+            }
+            else {
+                Message.textContent = `Message: Your username can be use`;
+                NameShow.textContent = `Welcome ${name}!`;
+            }
+        }
+    </script>
+</body>
+
+</html>

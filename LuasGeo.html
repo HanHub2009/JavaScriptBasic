@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kira Kira Luas</title>
+
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body img {
+            height: 32vh;
+            width: auto;
+        }
+
+        .bigDiv{
+            gap: 30px;
+            
+        }
+        .div {
+            text-align: center;
+        }
+
+        .div p{
+            border: 3px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bigDiv">
+        <div class="div">
+            <img src="LuasSegiEmpat.JPG"><br>
+            <label>Panjang: </label><input id="squareInput1"><br>
+            <label>Lebar: </label><input id="squareInput2"><br>
+            <button id="squareCheck">Check</button><br>
+            <label>Jawapan:</label>
+            <p id="squareAns"></p>
+        </div>
+
+        <div class="div">
+            <img src="LuasSegiTiga.JPG"><br>
+            <label>Tapak: </label><input id="triangleInput1"><br>
+            <label>Tinggi: </label><input id="triangleInput2"><br>
+            <button id="triangleCheck">Check</button><br>
+            <label>Jawapan:</label>
+            <p id="tringleAns"></p>
+        </div>
+
+        <div class="div">
+            <img src="LuasSegiTrape.JPG"><br>
+            <label>Panjang A: </label><input id="trapeziumInput1"><br>
+            <label>Panjang B: </label><input id="trapeziumInput2"><br>
+            <label>Tinggi: </label><input id="trapeziumInput3"><br>
+            <button id="trapeziumCheck">Check</button><br>
+            <label>Jawapan:</label>
+            <p id="trapeziumAns"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById(`squareCheck`).onclick = function () {
+            let SquareLegth = document.getElementById(`squareInput1`).value;
+            let Squarebreadth = document.getElementById(`squareInput2`).value;
+            SquareLegth = Number(SquareLegth);
+            Squarebreadth = Number(Squarebreadth);
+            document.getElementById(`squareAns`).textContent = SquareLegth * Squarebreadth;
+        }
+
+        document.getElementById(`triangleCheck`).onclick = function () {
+            let TriangleHeight = document.getElementById(`triangleInput1`).value;
+            let TriangleBase = document.getElementById(`triangleInput2`).value;
+            TriangleHeight = Number(TriangleHeight);
+            TriangleBase = Number(TriangleBase);
+            document.getElementById(`tringleAns`).textContent = 1 / 2 * TriangleHeight * TriangleBase;
+        }
+
+        document.getElementById(`trapeziumCheck`).onclick = function () {
+            let TrapeziumWidthA = document.getElementById(`trapeziumInput1`).value;
+            let TrapeziumWidthB = document.getElementById(`trapeziumInput2`).value;
+            let TrapeziumHeight = document.getElementById(`trapeziumInput3`).value;
+            TrapeziumWidthA = Number(TrapeziumWidthA);
+            TrapeziumWidthB = Number(TrapeziumWidthB);
+            TrapeziumHeight = Number(TrapeziumHeight);
+            document.getElementById(`trapeziumAns`).textContent = 1 / 2 * (TrapeziumWidthA + TrapeziumWidthB) * TrapeziumHeight;
+        }
+    </script>
+</body>
+
+</html>

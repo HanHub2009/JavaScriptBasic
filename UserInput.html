@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserInput</title>
+</head>
+<body>
+    <h1>User Input with Window Alert</h1>
+    <h3 id="UserWind"></h3>
+
+    
+    <h1>User Input with HTML textbox</h1>
+    <label>Username:</label>
+    <input id="UserBox"><br>
+    <button id="mySubmit">Submit</button><br>
+    <p id="NameBox"></p>
+
+    <script>
+        let usernameWind = window.prompt(`Your Username?`);
+        document.getElementById("UserWind").textContent = `Your user name is ${usernameWind}`;
+
+
+        document.getElementById("mySubmit").onclick = function(){
+            const usernameBox = document.getElementById("UserBox").value;
+            document.getElementById("NameBox").textContent = `Hello ${usernameBox}`;
+        }
+    </script>
+</body>
+</html>

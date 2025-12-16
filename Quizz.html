@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoLearn Quiz</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      color: #000;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .quiz-wrapper {
+      background: #f7f9fc;
+      border: 3px solid #1e90ff;
+      border-radius: 15px;
+      width: 700px;
+      padding: 30px 35px;
+      box-shadow: 0 0 15px rgba(30,144,255,0.3);
+    }
+
+    .header {
+      text-align: center;
+      font-size: 3em;
+      font-weight: 800;
+      color: #1e90ff;
+      margin-bottom: 25px;
+      letter-spacing: 1.5px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .nav-buttons button {
+      background: #1e90ff;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 5px;
+    }
+
+    .nav-buttons button:hover {
+      background: #63b3ff;
+      transform: scale(1.08);
+    }
+
+    .section-title {
+      background: #1e90ff;
+      text-align: center;
+      padding: 8px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.5em;
+      margin: 20px 0;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    #question {
+      text-align: center;
+      font-size: 1.5em;
+      margin-bottom: 25px;
+      color: #000;
+      font-weight: 600;
+    }
+
+    .answers {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .btn-answer {
+      background: linear-gradient(135deg, #1e90ff, #63b3ff);
+      color: #fff;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 30px;
+      cursor: pointer;
+      width: 85%;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: 0.3s;
+      clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+    }
+
+    .btn-answer:hover {
+      background: linear-gradient(135deg, #63b3ff, #1e90ff);
+      transform: scale(1.05);
+    }
+
+    #next-btn {
+      margin-top: 30px;
+      display: none;
+      background: #1e90ff;
+      border: none;
+      border-radius: 20px;
+      padding: 12px 25px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.2em;
+      transition: 0.3s;
+    }
+
+    #next-btn:hover {
+      background: #63b3ff;
+      transform: scale(1.08);
+    }
+
+    #progress {
+      text-align: center;
+      font-weight: 600;
+      color: #1e90ff;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+
+    #score {
+      text-align: center;
+      font-size: 1.3em;
+      color: #1e90ff;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .quiz-wrapper {
+        width: 90%;
+        padding: 20px;
+      }
+      .btn-answer {
+        font-size: 1em;
+      }
+      .header {
+        font-size: 2.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-wrapper">
+    <div class="header">VoLearn</div>
+
+    <div class="nav-buttons">
+      <button onclick="selectComponent('motherboard')">MOTHERBOARD</button>
+      <button onclick="selectComponent('cpu')">CPU</button>
+      <button onclick="selectComponent('heatsink')">HEAT SINK</button>
+      <button onclick="selectComponent('harddisk')">HARD DISK</button>
+      <button onclick="selectComponent('powersupply')">POWER SUPPLY</button>
+    </div>
+
+    <div class="section-title">QUIZ</div>
+
+    <div id="progress">Sila pilih komponen untuk mula.</div>
+    <div id="question">Tekan butang komponen di atas untuk mula kuiz.</div>
+
+    <div class="answers" id="answer-buttons"></div>
+
+    <div style="text-align: center;">
+      <button id="next-btn">Soalan Seterusnya</button>
+    </div>
+
+    <div id="score"></div>
+  </div>
+
+  <script>
+const quizSets = {
+  motherboard: [
+    { question: "Apakah fungsi utama motherboard?", answers: ["Menyimpan data", "Menghubungkan semua komponen komputer", "Menyejukkan CPU", "Menjana kuasa"], correct: 1 },
+    { question: "Apakah komponen yang dipasang pada motherboard?", answers: ["Monitor", "RAM dan CPU", "Keyboard", "Printer"], correct: 1 },
+    { question: "Apakah bentuk slot yang digunakan untuk memasang kad grafik?", answers: ["USB", "PCI Express", "HDMI", "VGA"], correct: 1 },
+    { question: "Bahagian mana pada motherboard yang menyimpan BIOS?", answers: ["CMOS Chip", "Hard Disk", "RAM", "GPU"], correct: 0 },
+    { question: "Apakah kabel yang menyambungkan motherboard kepada bekalan kuasa?", answers: ["SATA", "24-pin ATX", "HDMI", "USB"], correct: 1 }
+  ],
+  cpu: [
+    { question: "Apakah maksud CPU?", answers: ["Central Processing Unit", "Core Power Utility", "Central Print Unit", "Computer Power Unit"], correct: 0 },
+    { question: "Apakah fungsi CPU?", answers: ["Menyimpan data", "Melaksanakan arahan dan proses", "Menjana kuasa elektrik", "Menyejukkan komputer"], correct: 1 },
+    { question: "Bahagian CPU yang melakukan operasi matematik dipanggil?", answers: ["ALU", "RAM", "ROM", "GPU"], correct: 0 },
+    { question: "Kelajuan CPU diukur dalam unit apa?", answers: ["GB", "GHz", "MHz", "MB"], correct: 1 },
+    { question: "CPU terletak di atas komponen apa?", answers: ["RAM", "Motherboard", "Power Supply", "Monitor"], correct: 1 }
+  ],
+  heatsink: [
+    { question: "Apakah fungsi utama heat sink?", answers: ["Menyejukkan CPU", "Menyimpan data", "Menjana kuasa", "Menghantar isyarat"], correct: 0 },
+    { question: "Heat sink biasanya diperbuat daripada bahan apa?", answers: ["Plastik", "Aluminium atau tembaga", "Kayu", "Kaca"], correct: 1 },
+    { question: "Heat sink berfungsi bersama dengan komponen apa?", answers: ["Monitor", "Fan (kipas)", "Printer", "Speakers"], correct: 1 },
+    { question: "Apakah berlaku jika heat sink gagal berfungsi?", answers: ["CPU menjadi panas", "Data hilang", "Komputer jadi laju", "Tiada kesan"], correct: 0 },
+    { question: "Pasta terma digunakan untuk apa?", answers: ["Menghiasi CPU", "Meningkatkan pemindahan haba", "Membaiki motherboard", "Menyimpan tenaga"], correct: 1 }
+  ],
+  harddisk: [
+    { question: "Apakah fungsi utama hard disk?", answers: ["Menjalankan program", "Menyimpan data secara kekal", "Menjana kuasa", "Mengawal suhu"], correct: 1 },
+    { question: "Apakah jenis hard disk yang lebih laju?", answers: ["HDD", "SSD", "Floppy Disk", "CD-ROM"], correct: 1 },
+    { question: "Data dalam hard disk disimpan dalam bentuk apa?", answers: ["Elektrik", "Magnetik", "Gas", "Cecair"], correct: 1 },
+    { question: "Apakah kabel biasa digunakan untuk sambung hard disk moden?", answers: ["VGA", "SATA", "Ethernet", "HDMI"], correct: 1 },
+    { question: "Hard disk biasanya dipasang di mana?", answers: ["Dalam casing komputer", "Atas monitor", "Luar CPU", "Dalam papan kekunci"], correct: 0 }
+  ],
+  powersupply: [
+    { question: "Apakah fungsi utama power supply?", answers: ["Menyejukkan sistem", "Menukar arus AC kepada DC", "Menyimpan data", "Menjana grafik"], correct: 1 },
+    { question: "Apakah maksud PSU?", answers: ["Power Storage Unit", "Power Supply Unit", "Power Signal Utility", "Processor Supply Unit"], correct: 1 },
+    { question: "Apakah jenis kuasa yang digunakan oleh komputer?", answers: ["AC", "DC", "Solar", "Thermal"], correct: 1 },
+    { question: "Apakah kabel utama dari PSU ke motherboard?", answers: ["USB", "24-pin ATX", "HDMI", "SATA"], correct: 1 },
+    { question: "Apakah berlaku jika PSU rosak?", answers: ["Komputer tidak hidup", "Monitor padam", "Data hilang", "Kipas berhenti"], correct: 0 }
+  ]
+};
+
+let currentSet = [];
+let current = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const answersEl = document.getElementById("answer-buttons");
+const nextBtn = document.getElementById("next-btn");
+const progressEl = document.getElementById("progress");
+const scoreEl = document.getElementById("score");
+
+function selectComponent(component) {
+  currentSet = quizSets[component];
+  current = 0;
+  score = 0;
+  scoreEl.textContent = "";
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const q = currentSet[current];
+  questionEl.textContent = q.question;
+  progressEl.textContent = `Soalan ${current + 1} daripada ${currentSet.length}`;
+  answersEl.innerHTML = "";
+  nextBtn.style.display = "none";
+
+  q.answers.forEach((ans, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = ans;
+    btn.classList.add("btn-answer");
+    btn.onclick = () => checkAnswer(i === q.correct, btn);
+    answersEl.appendChild(btn);
+  });
+}
+
+function checkAnswer(correct, btn) {
+  const buttons = document.querySelectorAll(".btn-answer");
+  buttons.forEach(b => b.disabled = true);
+
+  if (correct) {
+    btn.style.background = "#00b300";
+    score++;
+  } else {
+    btn.style.background = "#ff3333";
+  }
+
+  nextBtn.style.display = "inline-block";
+}
+
+nextBtn.onclick = () => {
+  current++;
+  if (current < currentSet.length) {
+    loadQuestion();
+  } else {
+    showFinalScore();
+  }
+};
+
+function showFinalScore() {
+  questionEl.textContent = "🎉 Kuiz Tamat!";
+  answersEl.innerHTML = "";
+  nextBtn.style.display = "none";
+  progressEl.textContent = "";
+  scoreEl.textContent = `Markah anda: ${score} daripada ${currentSet.length}`;
+}
+  </script>
+</body>
+</html>

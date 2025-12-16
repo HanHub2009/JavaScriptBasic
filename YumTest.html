@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Enter Your Name</h1>
+
+    <input id="myInput" type="text"></input>
+    <button id="myBtn" type="submit">Submit</button> <br>
+    <label>Your name is <p id="myP"></p></label>
+
+    <h1>Enter Your Age</h1>
+
+    <input id="myAge" type="number">
+    <button id="myBtnAge" type="submitAge">Submit</button> <br>
+    <label>You are<p id="mypAge"></p></label>
+
+
+    <script>
+        document.getElementById(`myBtn`).onclick = function() {
+            const name = document.getElementById(`myInput`).value;
+            document.getElementById(`myP`).textContent = name;
+        }
+
+        document.getElementById(`myBtnAge`).onclick = function() {
+            const age = document.getElementById(`myAge`).value;
+
+            if(age <= 0 ) {
+                document.getElementById(`mypAge`).textContent = `Your age cant be under zero`;
+            } else {
+                document.getElementById(`mypAge`).textContent = `You can enter this place`;
+            };
+        }
+
+    </script>
+</body>
+
+</html>
